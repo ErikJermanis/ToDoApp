@@ -2,19 +2,19 @@ import React, {Component} from 'react';
 import {Container, ListGroup, ListGroupItem, Button} from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import uuid from 'uuid';
+import {connect} from 'react-redux';
+import {getItems} from '../actions/itemActions';
+import PropTypes from 'prop-types';
 
 class ToDoList extends Component {
-    state = {
-        items: [
-            {id: uuid(), name: 'Beat the boss'},
-            {id: uuid(), name: 'Wreck the house'},
-            {id: uuid(), name: 'Burn the car'},
-            {id: uuid(), name: 'Go fishing'}
-        ]
+
+    componentDidMount() {
+        this.props.getItems();
     }
+    
 
     render() {
-        const {items} = this.state;
+        const {items} = this.props.item;
         return(
             <Container>
                 <Button color="dark" style = {{marginBottom: '2rem'}} onClick={() => {
@@ -47,4 +47,13 @@ class ToDoList extends Component {
     }
 }
 
-export default ToDoList;
+ToDoList.propTypes = {
+    getItems: PropTypes.func.isRequired,
+    item: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    item: state.item
+});
+
+export default connect(mapStateToProps, {getItems})(ToDoList);
