@@ -5,6 +5,8 @@ import AppNavbar from './components/AppNavbar';
 import ToDoList from './components/ToDoList';
 import {Provider} from 'react-redux';
 import store from './store';
+import ItemModal from './components/itemModal';
+import {Container} from 'reactstrap';
 
 class App extends Component {
   render() {
@@ -12,7 +14,10 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <AppNavbar />
-          <ToDoList />
+          <Container>
+            <ItemModal />
+            <ToDoList />
+          </Container>
         </div>
       </Provider>
     );
